@@ -7,9 +7,22 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(assignment2_rt_services REQUIRED)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+add_executable(ui_node src/UI.cpp)
+add_executable(distance_node src/Distance.cpp)
+ament_target_dependencies(ui_node rclcpp geometry_msgs nav_msgs std_msgs assignment2_rt_services)
+ament_target_dependencies(distance_node rclcpp sensor_msgs std_msgs)
+
+install(TARGETS ui_node distance_node DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
